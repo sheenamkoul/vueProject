@@ -1,13 +1,20 @@
 <template>
   <div id="app">
     <h1></h1>
-    <router-view :product="products" @add-to-cart="addToCart" :cart="cart" @remove-from-cart="removeFromCart" />
-    <!-- <router-link to="/">Go to Home</router-link> -->
+  <ContainerPage :cart="cart" @remove-from-cart="removeFromCart"/>
+  <ProductsPage :products="products" @add-to-cart="addToCart"/>
 </div>
 </template>
+
 <script>
+import ProductsPage from './components/ProductsPage.vue';
+import ContainerPage from './components/ContainerPage.vue';
 export default {
   name: 'App',
+  components:{
+    ContainerPage,
+    ProductsPage,
+  },
  data() {
     return {
       products: [],
@@ -15,9 +22,8 @@ export default {
     };
   },
   methods: {
-    addToCart(products) {   
-      console.log(products);
-        this.cart.push({ ...products.title});
+    addToCart(product) {   
+        this.cart.push({ ...product});
     },
     removeFromCart(productId) {
       this.cart = this.cart.filter(item => item.id !== productId);
