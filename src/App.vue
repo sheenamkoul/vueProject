@@ -1,29 +1,34 @@
 <template>
   <div id="app">
     <h1></h1>
-  <ContainerPage :cart="cart" @remove-from-cart="removeFromCart"/>
-  <ProductsPage :products="products" @add-to-cart="addToCart"/>
+    <!-- <router-view :cart="cart"  @add-to-cart="addToCart"  /> -->
+    <router-view :cart="cart" @update-cart="updateCart" />
+
+    <!-- <router-view :product="products" @add-to-cart="addToCart" :cart="cart" @remove-from-cart="removeFromCart" /> -->
+    
+    <!-- <router-link :to="{ name: 'ContainerPage', query: { value: cart } }"></router-link> -->
+    
 </div>
 </template>
-
 <script>
-import ProductsPage from './components/ProductsPage.vue';
-import ContainerPage from './components/ContainerPage.vue';
 export default {
   name: 'App',
-  components:{
-    ContainerPage,
-    ProductsPage,
-  },
  data() {
     return {
+    
       products: [],
       cart: [],
     };
   },
   methods: {
-    addToCart(product) {   
-        this.cart.push({ ...product});
+    // addToCart(cart) {   
+    //   console.log("%%%%%%%%%%%%"+cart);
+    //   this.cart.push({ ...cart});
+    // },
+    updateCart(newItem) {
+      // console.log(newItem);
+      this.cart.push({...newItem}); // Add the new item to the cart
+      // console.log(this.cart);
     },
     removeFromCart(productId) {
       this.cart = this.cart.filter(item => item.id !== productId);
